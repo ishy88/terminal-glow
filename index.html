@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=windows-1250" http-equiv="content-type" />
+	<title>
+	      Terminal Glow
+	</title>
+	<script type="text/javascript" src="scripts/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			changeContents = function(id) {
+				$('title').load(id + '.html title', '', function() {
+					document.title = $(this).text();
+					$('.contentPane').load(id + '.html .main');
+				});
+				selected = document.getElementsByClassName('selected')
+				for (i = 0; i < selected.length; i++) {
+					selected[i].classList.remove('selected');
+				}
+				withChild = document.getElementsByClassName('selectedChild')
+				for (i = 0; i < withChild.length; i++) {
+					withChild[i].classList.remove('selectedChild');
+				}
+				link = jQuery(document.getElementById(id));
+				link.parent().addClass('selected');
+				if (!(link.parent().parent().parent().prop('tagName') == "DIV")) {
+					link.parent().parent().parent().addClass('selectedChild');
+				}
+				window.location.hash = id;
+			};
+
+			if(window.location.hash) {
+				changeContents(window.location.hash.substr(1));
+			} else {
+				window.location.hash = 'home';
+			}
+
+			window.onhashchange = function() {
+				changeContents(window.location.hash.substr(1));
+			}
+		});
+	</script>
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+	<header>
+		<span>
+			<h1>Terminal Glow</h1>
+		</span>
+	</header>
+	<!-- left-hand navigation / menu -->
+		<div class="menu">
+      <ul>
+        <li><button id='home' onclick="changeContents(this.id)">Home</button></li>
+        <li><button id='basics' onclick="changeContents(this.id)">The Basics</button>
+         <ul>
+          <li><button id='basics/core-system' onclick="changeContents(this.id)">&emsp;The Core System</button></li>
+          <li><button id='basics/moves-attributes' onclick="changeContents(this.id)">&emsp;Moves and Attributes</button></li>
+          <li><button id='basics/stress-trauma' onclick="changeContents(this.id)">&emsp;Stress and Trauma</button></li>
+          <li><button id='basics/clocks' onclick="changeContents(this.id)">&emsp;Progress Clocks</button></li>
+          <li><button id='basics/harm' onclick="changeContents(this.id)">&emsp;Consquences and Harm</button></li>
+          <li><button id='basics/resistance-armor' onclick="changeContents(this.id)">&emsp;Resistance and Armor</button></li>
+          <li><button id='basics/gear' onclick="changeContents(this.id)">&emsp;Gear and Load</button></li>
+          <li><button id='basics/fortune' onclick="changeContents(this.id)">&emsp;The Fortune Roll</button></li>
+          <li><button id='basics/cred' onclick="changeContents(this.id)">&emsp;Cash and Cred</button></li>
+          <li><button id='basics/factions' onclick="changeContents(this.id)">&emsp;The Faction Game</button></li>
+          <li><button id='basics/advancement' onclick="changeContents(this.id)">&emsp;Advancement</button></li>
+         </ul>
+        </li>
+        <li><button id='characters' onclick="changeContents(this.id)">Character Creation</button></li>
+        <li><button id='crew' onclick="changeContents(this.id)">The Crew</button></li>
+        <li><button id='mission' onclick="changeContents(this.id)">The Mission</button>
+         <ul>
+          <li><button id='mission/planning-engagement' onclick="changeContents(this.id)">&emsp;Planning and Engagement</button></li>
+          <li><button id='mission/flashbacks' onclick="changeContents(this.id)">&emsp;Flashbacks</button></li>
+          <li><button id='mission/teamwork' onclick="changeContents(this.id)">&emsp;Teamwork</button></li>
+         </ul>
+        </li>
+        <li><button id='downtime' onclick="changeContents(this.id)">Downtime</button>
+         <ul>
+          <li><button id='downtime/payoff' onclick="changeContents(this.id)">&emsp;Payoff</button></li>
+          <li><button id='downtime/heat' onclick="changeContents(this.id)">&emsp;Heat</button></li>
+          <li><button id='downtime/entanglment' onclick="changeContents(this.id)">&emsp;Entanglements</button></li>
+          <li><button id='downtime/activities' onclick="changeContents(this.id)">&emsp;Downtime Activities</button></li>
+          <li><button id='downtime/fix' onclick="changeContents(this.id)">&emsp;Fix</button></li>
+          <li><button id='downtime/crafting' onclick="changeContents(this.id)">&emsp;Crafting</button></li>
+         </ul>
+        </li>
+			</ul>
+		</div>
+		<!-- main contents -->
+		<div class="contentPane"></div>
+</body>
+</html>
